@@ -25,7 +25,8 @@ class Html extends React.Component {
       }).isRequired,
     ),
     scripts: PropTypes.arrayOf(PropTypes.string.isRequired),
-    app: PropTypes.object, // eslint-disable-line
+    // eslint-disable-next-line react/forbid-prop-types
+    app: PropTypes.object.isRequired,
     children: PropTypes.string.isRequired,
   };
 
@@ -37,7 +38,7 @@ class Html extends React.Component {
   render() {
     const { title, description, styles, scripts, app, children } = this.props;
     return (
-      <html className="no-js" lang="en">
+      <html className="no-js" lang={app.lang}>
         <head>
           <meta charSet="utf-8" />
           <meta httpEquiv="x-ua-compatible" content="ie=edge" />
@@ -62,7 +63,9 @@ class Html extends React.Component {
           <script
             dangerouslySetInnerHTML={{ __html: `window.App=${serialize(app)}` }}
           />
-          {scripts.map(script => <script key={script} src={script} />)}
+          {scripts.map(script => (
+            <script key={script} src={script} />
+          ))}
           {config.analytics.googleTrackingId && (
             <script
               dangerouslySetInnerHTML={{
