@@ -2,26 +2,26 @@ import { merge } from 'lodash';
 import { makeExecutableSchema } from 'graphql-tools';
 
 import {
-  schema as NewsSchema,
-  resolvers as NewsResolvers,
-  queries as NewsQueries,
+    schema as NewsSchema,
+    resolvers as NewsResolvers,
+    queries as NewsQueries,
 } from './graphql/News/schema';
 
 import {
-  schema as DatabaseSchema,
-  resolvers as DatabaseResolvers,
-  mutations as DatabaseMutations,
-  queries as DatabaseQueries,
+    schema as DatabaseSchema,
+    resolvers as DatabaseResolvers,
+    mutations as DatabaseMutations,
+    queries as DatabaseQueries,
 } from './graphql/Database/schema';
 
 import {
-  schema as IntlSchema,
-  resolvers as IntlResolvers,
-  queries as IntlQueries,
+    schema as IntlSchema,
+    resolvers as IntlResolvers,
+    queries as IntlQueries,
 } from './graphql/Intl/schema';
 
 const RootQuery = [
-  `
+    `
   # # React-Starter-Kit Querying API
   # ### This GraphQL schema was built with [Apollo GraphQL-Tools](https://github.com/apollographql/graphql-tools)
   # _Build, mock, and stitch a GraphQL schema using the schema language_
@@ -40,7 +40,7 @@ const RootQuery = [
 ];
 
 const Mutation = [
-  `
+    `
   # # React-Starter-Kit Mutating API
   # ### This GraphQL schema was built with [Apollo GraphQL-Tools](https://github.com/apollographql/graphql-tools)
   # _Build, mock, and stitch a GraphQL schema using the schema language_
@@ -57,7 +57,7 @@ const Mutation = [
 ];
 
 const SchemaDefinition = [
-  `
+    `
   schema {
     query: RootQuery
     mutation: Mutation
@@ -70,17 +70,17 @@ const SchemaDefinition = [
 const resolvers = merge(NewsResolvers, DatabaseResolvers, IntlResolvers);
 
 const schema = [
-  ...SchemaDefinition,
-  ...RootQuery,
-  ...Mutation,
+    ...SchemaDefinition,
+    ...RootQuery,
+    ...Mutation,
 
-  ...NewsSchema,
-  ...DatabaseSchema,
-  ...IntlSchema,
+    ...NewsSchema,
+    ...DatabaseSchema,
+    ...IntlSchema,
 ];
 
 export default makeExecutableSchema({
-  typeDefs: schema,
-  resolvers,
-  ...(__DEV__ ? { log: e => console.error(e.stack) } : {}),
+    typeDefs: schema,
+    resolvers,
+    ...(__DEV__ ? { log: e => console.error(e.stack) } : {}),
 });

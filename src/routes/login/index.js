@@ -13,24 +13,24 @@ import Layout from '../../components/Layout';
 import Login from './Login';
 
 const messages = defineMessages({
-  title: {
-    id: 'login.title',
-    description: 'Log in page title',
-    defaultMessage: 'Log In',
-  },
+    title: {
+        id: 'login.title',
+        description: 'Log in page title',
+        defaultMessage: 'Log In',
+    },
 });
 
 function action({ intl }) {
-  const title = intl.formatMessage(messages.title);
-  return {
-    chunks: ['login'],
-    title,
-    component: (
-      <Layout>
-        <Login title={title} />
-      </Layout>
-    ),
-  };
+    const title = intl.formatMessage(messages.title);
+    return {
+        chunks: ['login'],
+        title,
+        component: (
+            <Layout>
+                <Login title={title} />
+            </Layout>
+        ),
+    };
 }
 
 export default action;

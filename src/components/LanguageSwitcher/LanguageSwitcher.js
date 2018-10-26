@@ -8,58 +8,58 @@ import { setLocale } from '../../actions/intl';
 import s from './LanguageSwitcher.css';
 
 const localeDict = {
-  /* @intl-code-template '${lang}-${COUNTRY}': '${Name}', */
-  'en-US': 'English',
-  'cs-CZ': 'Česky',
-  /* @intl-code-template-end */
+    /* @intl-code-template '${lang}-${COUNTRY}': '${Name}', */
+    'en-US': 'English',
+    'cs-CZ': 'Česky',
+    /* @intl-code-template-end */
 };
 
 class LanguageSwitcher extends React.Component {
-  static propTypes = {
-    currentLocale: PropTypes.string.isRequired,
-    availableLocales: PropTypes.arrayOf(PropTypes.string).isRequired,
-    setLocale: PropTypes.func.isRequired,
-  };
+    static propTypes = {
+        currentLocale: PropTypes.string.isRequired,
+        availableLocales: PropTypes.arrayOf(PropTypes.string).isRequired,
+        setLocale: PropTypes.func.isRequired,
+    };
 
-  render() {
-    const { currentLocale, availableLocales, setLocale } = this.props;
-    const isSelected = locale => locale === currentLocale;
-    const localeName = locale => localeDict[locale] || locale;
+    render() {
+        const { currentLocale, availableLocales, setLocale } = this.props;
+        const isSelected = locale => locale === currentLocale;
+        const localeName = locale => localeDict[locale] || locale;
 
-    return (
-      <div className={s.root}>
-        {availableLocales.map(locale => (
-          <span key={locale}>
-            {isSelected(locale) ? (
-              <span>{localeName(locale)}</span>
-            ) : (
-              <a
-                href={`?lang=${locale}`}
-                onClick={e => {
-                  setLocale({ locale });
-                  e.preventDefault();
-                }}
-              >
-                {localeName(locale)}
-              </a>
-            )}{' '}
-          </span>
-        ))}
-      </div>
-    );
-  }
+        return (
+            <div className={s.root}>
+                {availableLocales.map(locale => (
+                    <span key={locale}>
+                        {isSelected(locale) ? (
+                            <span>{localeName(locale)}</span>
+                        ) : (
+                            <a
+                                href={`?lang=${locale}`}
+                                onClick={e => {
+                                    setLocale({ locale });
+                                    e.preventDefault();
+                                }}
+                            >
+                                {localeName(locale)}
+                            </a>
+                        )}{' '}
+                    </span>
+                ))}
+            </div>
+        );
+    }
 }
 
 const mapState = state => ({
-  availableLocales: state.runtime.availableLocales,
-  currentLocale: state.intl.locale,
+    availableLocales: state.runtime.availableLocales,
+    currentLocale: state.intl.locale,
 });
 
 const mapDispatch = {
-  setLocale,
+    setLocale,
 };
 
 export default connect(
-  mapState,
-  mapDispatch,
+    mapState,
+    mapDispatch,
 )(withStyles(s)(LanguageSwitcher));

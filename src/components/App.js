@@ -14,21 +14,21 @@ import { Provider as ReduxProvider } from 'react-redux';
 import { ApolloProvider } from 'react-apollo';
 
 const ContextType = {
-  // Enables critical path CSS rendering
-  // https://github.com/kriasoft/isomorphic-style-loader
-  insertCss: PropTypes.func.isRequired,
-  // Universal HTTP client
-  fetch: PropTypes.func.isRequired,
-  pathname: PropTypes.string.isRequired,
-  query: PropTypes.object,
-  // Integrate Redux
-  // http://redux.js.org/docs/basics/UsageWithReact.html
-  ...ReduxProvider.childContextTypes,
-  // Apollo Client
-  client: PropTypes.object.isRequired,
-  // ReactIntl
-  intl: IntlProvider.childContextTypes.intl,
-  locale: PropTypes.string,
+    // Enables critical path CSS rendering
+    // https://github.com/kriasoft/isomorphic-style-loader
+    insertCss: PropTypes.func.isRequired,
+    // Universal HTTP client
+    fetch: PropTypes.func.isRequired,
+    pathname: PropTypes.string.isRequired,
+    query: PropTypes.object,
+    // Integrate Redux
+    // http://redux.js.org/docs/basics/UsageWithReact.html
+    ...ReduxProvider.childContextTypes,
+    // Apollo Client
+    client: PropTypes.object.isRequired,
+    // ReactIntl
+    intl: IntlProvider.childContextTypes.intl,
+    locale: PropTypes.string,
 };
 
 /**
@@ -54,50 +54,52 @@ const ContextType = {
  *   );
  */
 class App extends React.PureComponent {
-  static propTypes = {
-    context: PropTypes.shape(ContextType).isRequired,
-    children: PropTypes.element.isRequired,
-  };
+    static propTypes = {
+        context: PropTypes.shape(ContextType).isRequired,
+        children: PropTypes.element.isRequired,
+    };
 
-  static childContextTypes = ContextType;
+    static childContextTypes = ContextType;
 
-  getChildContext() {
-    return this.props.context;
-  }
+    getChildContext() {
+        return this.props.context;
+    }
 
-  // NOTE: This methods are not needed if you update URL by setLocale action.
-  //
-  //  componentDidMount() {
-  //    const store = this.props.context && this.props.context.store;
-  //    if (store) {
-  //      this.lastLocale = store.getState().intl.locale;
-  //      this.unsubscribe = store.subscribe(() => {
-  //        const state = store.getState();
-  //        const { newLocale, locale } = state.intl;
-  //        if (!newLocale && this.lastLocale !== locale) {
-  //          this.lastLocale = locale;
-  //          this.forceUpdate();
-  //        }
-  //      });
-  //    }
-  //  }
-  //
-  //  componentWillUnmount() {
-  //    if (this.unsubscribe) {
-  //      this.unsubscribe();
-  //      this.unsubscribe = null;
-  //    }
-  //  }
+    // NOTE: This methods are not needed if you update URL by setLocale action.
+    //
+    //  componentDidMount() {
+    //    const store = this.props.context && this.props.context.store;
+    //    if (store) {
+    //      this.lastLocale = store.getState().intl.locale;
+    //      this.unsubscribe = store.subscribe(() => {
+    //        const state = store.getState();
+    //        const { newLocale, locale } = state.intl;
+    //        if (!newLocale && this.lastLocale !== locale) {
+    //          this.lastLocale = locale;
+    //          this.forceUpdate();
+    //        }
+    //      });
+    //    }
+    //  }
+    //
+    //  componentWillUnmount() {
+    //    if (this.unsubscribe) {
+    //      this.unsubscribe();
+    //      this.unsubscribe = null;
+    //    }
+    //  }
 
-  render() {
-    // Here, we are at universe level, sure? ;-)
-    const { client } = this.props.context;
-    // NOTE: If you need to add or modify header, footer etc. of the app,
-    // please do that inside the Layout component.
-    return (
-      <ApolloProvider client={client}>{this.props.children}</ApolloProvider>
-    );
-  }
+    render() {
+        // Here, we are at universe level, sure? ;-)
+        const { client } = this.props.context;
+        // NOTE: If you need to add or modify header, footer etc. of the app,
+        // please do that inside the Layout component.
+        return (
+            <ApolloProvider client={client}>
+                {this.props.children}
+            </ApolloProvider>
+        );
+    }
 }
 
 export default App;

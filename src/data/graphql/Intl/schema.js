@@ -12,7 +12,7 @@ import Promise from 'bluebird';
 import { locales } from '../../../config';
 
 export const schema = [
-  `
+    `
   type IntlMessage {
     id: String!
     defaultMessage: String!
@@ -24,7 +24,7 @@ export const schema = [
 ];
 
 export const queries = [
-  `
+    `
   # Supported locales: "${locales.join('", "')}"
   intl(locale: String!): [IntlMessage]
 `,
@@ -35,22 +35,24 @@ const MESSAGES_DIR = process.env.MESSAGES_DIR || join(__dirname, './messages');
 const readFile = Promise.promisify(fs.readFile);
 
 export const resolvers = {
-  RootQuery: {
-    async intl(parent, { locale }) {
-      if (!locales.includes(locale)) {
-        throw new Error(`Locale '${locale}' not supported`);
-      }
+    RootQuery: {
+        async intl(parent, { locale }) {
+            if (!locales.includes(locale)) {
+                throw new Error(`Locale '${locale}' not supported`);
+            }
 
-      let localeData;
-      try {
-        localeData = await readFile(join(MESSAGES_DIR, `${locale}.json`));
-      } catch (err) {
-        if (err.code === 'ENOENT') {
-          throw new Error(`Locale '${locale}' not found`);
-        }
-      }
+            let localeData;
+            try {
+                localeData = await readFile(
+                    join(MESSAGES_DIR, `${locale}.json`),
+                );
+            } catch (err) {
+                if (err.code === 'ENOENT') {
+                    throw new Error(`Locale '${locale}' not found`);
+                }
+            }
 
-      return JSON.parse(localeData);
+            return JSON.parse(localeData);
+        },
     },
-  },
 };

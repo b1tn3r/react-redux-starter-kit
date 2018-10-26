@@ -4,7 +4,7 @@ import runtime from './runtime';
 import intl from './intl';
 
 export default combineReducers({
-  user,
-  runtime,
-  intl,
+    user,
+    runtime,
+    intl,
 });
