@@ -15,6 +15,13 @@ yarn install
 yarn start
 ```
 
+### Run in Production:
+
+```
+yarn build:prod
+yarn start:prod
+```
+
 ---
 
 All credit goes to the team that developed the original [react-starter-kit](https://github.com/kriasoft/react-starter-kit).
